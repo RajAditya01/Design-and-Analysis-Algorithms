@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+using namespace std;
 
 // Swap utility
 void swap(long int* a, long int* b)
@@ -71,7 +72,7 @@ int main()
 	// of sorting algorithms
 	double tim1[10], tim2[10], tim3[10];
 
-	printf("A_size, Bubble, Insertion, Selection\n");
+	cout<<("A_size, Bubble, Insertion, Selection\n")<<endl;
 
 	// Performs 10 iterations
 	while (it++ < 10) {
@@ -112,11 +113,11 @@ int main()
 
 		// type conversion to long int
 		// for plotting graph with integer values
-		printf("%li, %li, %li, %li\n",
+		cout<<("%li, %li, %li, %li\n",
 			n,
 			(long int)tim1[it],
 			(long int)tim2[it],
-			(long int)tim3[it]);
+			(long int)tim3[it])<<endl;
 
 		// increases the size of array by 10000
 		n += 10000;
