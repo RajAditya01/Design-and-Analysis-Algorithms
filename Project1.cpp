@@ -1,127 +1,58 @@
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include <chrono>
+#include <ctime>
+
 using namespace std;
 
-// Swap utility
-void swap(long int* a, long int* b)
-{
-	int tmp = *a;
-	*a = *b;
-	*b = tmp;
+void insertionSort(int arr[], int n) {
+    auto start = chrono::high_resolution_clock::now();
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
+    cout << "Insertion sort took " << duration << " microseconds" << endl;
 }
 
-// Bubble sort
-void bubbleSort(long int a[], long int n)
-{
-	for (long int i = 0; i < n - 1; i++) {
-		for (long int j = 0; j < n - 1 - i; j++) {
-			if (a[j] > a[j + 1]) {
-				swap(&a[j], &a[j + 1]);
-			}
-		}
-	}
+void selectionSort(int arr[], int n) {
+    auto start = chrono::high_resolution_clock::now();
+    int i, j, min_idx;
+    for (i = 0; i < n - 1; i++) {
+        min_idx = i;
+        for (j = i + 1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        swap(arr[min_idx], arr[i]);
+    }
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
+    cout << "Selection sort took " << duration << " microseconds" << endl;
 }
 
-// Insertion sort
-void insertionSort(long int arr[], long int n)
-{
-	long int i, key, j;
-	for (i = 1; i < n; i++) {
-		key = arr[i];
-		j = i - 1;
-
-		// Move elements of arr[0..i-1], that are
-		// greater than key, to one position ahead
-		// of their current position
-		while (j >= 0 && arr[j] > key) {
-			arr[j + 1] = arr[j];
-			j = j - 1;
-		}
-		arr[j + 1] = key;
-	}
+void bubbleSort(int arr[], int n) {
+    auto start = chrono::high_resolution_clock::now();
+    int i, j;
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - i - 1; j++)
+            if (arr[j] > arr[j + 1])
+                swap(arr[j], arr[j + 1]);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
+    cout << "Bubble sort took " << duration << " microseconds" << endl;
 }
 
-// Selection sort
-void selectionSort(long int arr[], long int n)
-{
-	long int i, j, midx;
-
-	for (i = 0; i < n - 1; i++) {
-
-		// Find the minimum element in unsorted array
-		midx = i;
-
-		for (j = i + 1; j < n; j++)
-			if (arr[j] < arr[midx])
-				midx = j;
-
-		// Swap the found minimum element
-		// with the first element
-		swap(&arr[midx], &arr[i]);
-	}
-}
-
-
-int main()
-{
-	long int n = 1000;
-	int it = 0;
-
-	// Arrays to store time duration
-	// of sorting algorithms
-	double tim1[10], tim2[10], tim3[10];
-
-	cout<<("A_size, Bubble, Insertion, Selection\n")<<endl;
-
-	// Performs 10 iterations
-	while (it++ < 10) {
-		long int a[n], b[n], c[n];
-
-		// generating n random numbers
-		// storing them in arrays a, b, c
-		for (int i = 0; i < n; i++) {
-			long int no = rand() % n + 1;
-			a[i] = no;
-			b[i] = no;
-			c[i] = no;
-		}
-
-		// using clock_t to store time
-		clock_t start, end;
-
-		// Bubble sort
-		start = clock();
-		bubbleSort(a, n);
-		end = clock();
-
-		tim1[it] = ((double)(end - start));
-
-		// Insertion sort
-		start = clock();
-		insertionSort(b, n);
-		end = clock();
-
-		tim2[it] = ((double)(end - start));
-
-		// Selection sort
-		start = clock();
-		selectionSort(c, n);
-		end = clock();
-
-		tim3[it] = ((double)(end - start));
-
-		// type conversion to long int
-		// for plotting graph with integer values
-		cout<<("%li, %li, %li, %li\n",
-			n,
-			(long int)tim1[it],
-			(long int)tim2[it],
-			(long int)tim3[it])<<endl;
-
-		// increases the size of array by 10000
-		n += 10000;
-	}
-
-	return 0;
+int main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    insertionSort(arr, n);
+    selectionSort(arr, n);
+    bubbleSort(arr, n);
+    return 0;
 }
