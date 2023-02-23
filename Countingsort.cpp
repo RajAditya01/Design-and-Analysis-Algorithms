@@ -4,8 +4,11 @@
 using namespace std;
 
 void countingSort(int arr[], int n) {
+
     int maxVal = *max_element(arr, arr + n); // find the maximum value in the array
+
     int count[maxVal + 1] = {0}; // create a count array to store the count of each element
+
 
     for (int i = 0; i < n; i++) {
         count[arr[i]]++; // increment the count of the corresponding element in the count array
