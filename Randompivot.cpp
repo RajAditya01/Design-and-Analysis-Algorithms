@@ -33,7 +33,8 @@ void quick_sort(vector<int>& arr, int low, int high) {
 }
 
 int main() {
-    vector<int> arr = {5, 2, 9, 3, 7, 6, 1, 8, 4};
+    //vector<int> arr = {5, 2, 9, 3, 7, 6, 1, 8, 4};
+    vector<int>arr[n];
     quick_sort(arr, 0, arr.size() - 1);
     for (int x : arr) {
         cout << x << " ";
