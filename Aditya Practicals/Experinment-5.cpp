@@ -1,16 +1,38 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
+// Struct to represent an activity
 struct Activity {
-    int start_time;
-    int end_time;
+    int start, finish;
 };
 
-bool cmp(Activity a, Activity b) {
-    return a.end_time < b.end_time;
+// Function to compare activities based on finish time
+bool compareActivities(Activity a1, Activity a2) {
+    return (a1.finish < a2.finish);
+}
+
+// Function to find maximum number of activities that can be performed
+int activitySelection(vector<Activity>& activities) {
+    // Sort activities based on finish time
+    sort(activities.begin(), activities.end(), compareActivities);
+    
+    // Select the first activity
+    int last_finish_time = activities[0].finish;
+    int count = 1;
+    cout << "Selected activity: 0\n";
+    
+    // Select other activities if they don't overlap with the last selected activity
+    for (int i = 1; i < activities.size(); i++) {
+        if (activities[i].start >= last_finish_time) {
+            count++;
+            cout << "Selected activity: " << i << "\n";
+            last_finish_time = activities[i].finish;
+        }
+    }
+    return count;
 }
 
 int main() {
@@ -19,22 +41,16 @@ int main() {
     cin >> n;
 
     vector<Activity> activities(n);
+
+    // Input the start and finish time of each activity
     for (int i = 0; i < n; i++) {
-        cout << "Enter start time and end time of activity " << i+1 << ": ";
-        cin >> activities[i].start_time >> activities[i].end_time;
+        cout << "Enter start time and finish time of activity " << i << ": ";
+        cin >> activities[i].start >> activities[i].finish;
     }
 
-    sort(activities.begin(), activities.end(), cmp);
-
-    int last_end_time = 0, count = 0;
-    for (int i = 0; i < n; i++) {
-        if (activities[i].start_time >= last_end_time) {
-            count++;
-            last_end_time = activities[i].end_time;
-        }
-    }
-
-    cout << "Maximum number of activities that can be performed: " << count << endl;
+    int max_activities = activitySelection(activities);
+    cout << "Maximum number of activities that can be performed: " << max_activities << endl;
 
     return 0;
 }
+
