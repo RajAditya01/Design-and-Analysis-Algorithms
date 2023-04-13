@@ -12,7 +12,7 @@ void print_tables(int table[][100], int n) {
 
 void print_optimal_parentheses(int s[][100], int i, int j) {
     if(i == j) {
-        cout << "A" << i;
+        cout << "A" << i<<" ";
     } else {
         cout << "(";
         print_optimal_parentheses(s, i, s[i][j]);
