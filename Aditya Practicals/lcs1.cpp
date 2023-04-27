@@ -40,8 +40,8 @@ string lcs(string dna1, string dna2) {
 }
 
 int main() {
-    // generate two random DNA sequences of length 20
-    string dna1 = "agptaggttgattcccatga";
+    // generate two random DNA sequences of length 30
+    string dna1 = "agptaggttgattcccatgazaguytragf";
     string dna2 = "actatgggatagggtgtaga";
     
     // call the LCS function with the random DNA sequences
