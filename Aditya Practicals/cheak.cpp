@@ -4,10 +4,9 @@
 #include <ctime>
 #include <cstdlib>
 #include <chrono>
-#include <gnuplot/gnuplot.h>
-
 using namespace std;
-using namespace std::chrono;
+using namespace std::chrono;    
+
 
 // ...
       
